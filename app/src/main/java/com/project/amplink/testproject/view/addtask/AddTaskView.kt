@@ -1,4 +1,4 @@
-package com.project.amplink.testproject.addtask
+package com.project.amplink.testproject.view.addtask
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -25,8 +25,9 @@ class AddTaskView : AppCompatActivity(){
     }
 
     fun onAddClicked(v:View) {
-        viewModel.insertData()
-        Toast.makeText(this, "올렸습니다.", Toast.LENGTH_LONG).show()
-        finish()
+        viewModel.insertData{
+            Toast.makeText(this, "올렸습니다.", Toast.LENGTH_LONG).show()
+            finish()
+        }
     }
 }

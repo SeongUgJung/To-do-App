@@ -1,17 +1,21 @@
-package com.project.amplink.testproject.tasklists
+package com.project.amplink.testproject.view.tasklists
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.project.amplink.testproject.R
-import com.project.amplink.testproject.addtask.AddTaskView
+import com.project.amplink.testproject.view.addtask.AddTaskView
 import com.project.amplink.testproject.databinding.TasklistviewBinding
+import kotlinx.android.synthetic.main.tasklistview.*
 
 class TaskListView : AppCompatActivity() {
     private lateinit var viewModel: TaskListViewModel
+    private lateinit var adapter: TaskListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView(this, R.layout.tasklistview) as TasklistviewBinding
@@ -19,6 +23,24 @@ class TaskListView : AppCompatActivity() {
         binding.setLifecycleOwner(this)
         binding.viewModel = this.viewModel
 
+        setRecyclerView()
+
+        viewModel.setTasks()
+
+        viewModel.getTasks().observe(this, Observer {
+            adapter.setTasks(it!!)
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setTasks()
+    }
+
+    private fun setRecyclerView() {
+         adapter = TaskListAdapter()
+        recyclerview.adapter = adapter
+        recyclerview.layoutManager = LinearLayoutManager(this)
     }
 
     fun onButtonClicked(v: View) {

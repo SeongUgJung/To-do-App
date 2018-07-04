@@ -3,16 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.addtask.AddTaskView">
+    tools:context=".view.detailTask.DetailTaskView">
+
     <data>
-        <variable name="viewModel" type="com.project.amplink.testproject.addtask.AddTaskViewModel" />
+        <variable name="viewModel" type="com.project.amplink.testproject.detailTask.DetailTaskViewModel" />
     </data>
+
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/addtaskview_title"
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -23,14 +25,14 @@
         android:ems="10"
         android:hint="Title"
         android:text="@={viewModel.task.title}"
-        android:inputType="textPersonName"
         android:onTextChanged="@{() -> viewModel.setIsTitle()}"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/addtaskview_name"
+        android:id="@+id/editText2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -39,16 +41,17 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:enabled="false"
         android:hint="Name"
         android:text="@={viewModel.task.name}"
-        android:onTextChanged="@{() -> viewModel.setIsName()}"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addtaskview_title" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <EditText
-        android:id="@+id/addtaskview_content"
+        android:id="@+id/editText3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -59,17 +62,17 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="top|left"
-        android:hint="content"
+        android:hint="Content"
         android:text="@={viewModel.task.content}"
         android:onTextChanged="@{() -> viewModel.setIsContent()}"
-        android:inputType="textMultiLine|textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addtaskview_name" />
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -77,15 +80,15 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:text="확인"
-        android:enabled="@{viewModel.isTitle&amp;&amp;viewModel.isContent&amp;&amp;viewModel.isName ? true : false}"
-        android:onClick="onAddClicked"
+        android:onClick="onUpdateClicked"
+        android:text="Update"
+        android:enabled="@{viewModel.isTitle &amp;&amp; viewModel.isContent ? true : false}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/space"
+        app:layout_constraintEnd_toStartOf="@+id/space2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -93,17 +96,21 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
-        android:text="취소"
-        android:onClick="onCancelClicked"
+        android:onClick="onDeleteClicked"
+        android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/space" />
+        app:layout_constraintStart_toEndOf="@+id/space2" />
 
     <Space
-        android:id="@+id/space"
+        android:id="@+id/space2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
