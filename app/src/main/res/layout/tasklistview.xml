@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.tasklists.TaskListView">
     <data>
-        <variable name="viewModel" type="com.project.amplink.testproject.tasklists.TaskListViewModel" />
+        <variable name="viewModel" type="com.project.amplink.testproject.view.tasklists.TaskListViewModel" />
         <variable name="view" type="android.view.View" />
     </data>
 <android.support.constraint.ConstraintLayout

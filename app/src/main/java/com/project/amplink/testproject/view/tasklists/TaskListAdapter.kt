@@ -3,11 +3,11 @@ package com.project.amplink.testproject.view.tasklists
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.project.amplink.testproject.R
-import com.project.amplink.testproject.view.detailTask.DetailTaskView
+import com.project.amplink.testproject.BR
+import com.project.amplink.testproject.databinding.TasklistitemBinding
 import com.project.amplink.testproject.domain.Task
+import com.project.amplink.testproject.view.detailTask.DetailTaskView
 import kotlinx.android.synthetic.main.tasklistitem.view.*
 
 class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
@@ -19,8 +19,8 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.tasklistitem, parent, false)
-        return ViewHolder(view)
+        val binding = TasklistitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -29,9 +29,7 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
-        holder.itemView.textView.text = task.no.toString()
-        holder.itemView.textView2.text = task.title
-
+        holder.bind(task)
         holder.itemView.stage.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailTaskView::class.java)
             intent.putExtra("index", task.no)
@@ -41,5 +39,9 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
 
 
-    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
+    class ViewHolder(private val binding: TasklistitemBinding):RecyclerView.ViewHolder(binding.root) {
+        fun bind(task: Task) {
+            binding.setVariable(BR.task, task)
+        }
+    }
 }

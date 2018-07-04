@@ -22,10 +22,7 @@ class TaskListView : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.viewModel = this.viewModel
-
         setRecyclerView()
-
-        viewModel.setTasks()
 
         viewModel.getTasks().observe(this, Observer {
             adapter.setTasks(it!!)

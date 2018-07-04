@@ -6,7 +6,7 @@
     tools:context=".view.detailTask.DetailTaskView">
 
     <data>
-        <variable name="viewModel" type="com.project.amplink.testproject.detailTask.DetailTaskViewModel" />
+        <variable name="viewModel" type="com.project.amplink.testproject.view.detailTask.DetailTaskViewModel" />
     </data>
 
 <android.support.constraint.ConstraintLayout
