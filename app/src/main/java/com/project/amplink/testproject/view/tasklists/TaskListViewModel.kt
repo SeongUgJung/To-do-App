@@ -10,11 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class TaskListViewModel(private val context: Application): AndroidViewModel(context) {
-    private var tasks: MutableLiveData<MutableList<Task>> = MutableLiveData()
-
-    fun getTasks(): MutableLiveData<MutableList<Task>> {
-        return tasks
-    }
+    var tasks: MutableLiveData<MutableList<Task>> = MutableLiveData()
 
     fun setTasks() {
         val dao = AppDatabase.getInstance(context).taskDao()

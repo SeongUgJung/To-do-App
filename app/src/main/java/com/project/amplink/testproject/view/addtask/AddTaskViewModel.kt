@@ -10,11 +10,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class AddTaskViewModel(private val context:Application): AndroidViewModel(context) {
-    private var task: MutableLiveData<Task> = MutableLiveData()
+    var task: MutableLiveData<Task> = MutableLiveData()
 
-    private var isTitle: MutableLiveData<Boolean> = MutableLiveData()
-    private var isName: MutableLiveData<Boolean> = MutableLiveData()
-    private var isContent: MutableLiveData<Boolean> = MutableLiveData()
+    var isTitle: MutableLiveData<Boolean> = MutableLiveData()
+    var isName: MutableLiveData<Boolean> = MutableLiveData()
+    var isContent: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         task.postValue(Task(0, "", "", ""))
@@ -29,20 +29,6 @@ class AddTaskViewModel(private val context:Application): AndroidViewModel(contex
         Observable.fromCallable {
             dao.insertTask(task.value!!)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({},{}, {onSuccess()})
-    }
-
-    fun getTask(): MutableLiveData<Task> {
-        return task
-    }
-
-    fun getIsTitle(): MutableLiveData<Boolean> {
-        return isTitle
-    }
-    fun getIsName(): MutableLiveData<Boolean> {
-        return isName
-    }
-    fun getIsContent(): MutableLiveData<Boolean> {
-        return isContent
     }
 
     fun setIsTitle() {

@@ -24,7 +24,7 @@ class TaskListView : AppCompatActivity() {
         binding.viewModel = this.viewModel
         setRecyclerView()
 
-        viewModel.getTasks().observe(this, Observer {
+        viewModel.tasks.observe(this, Observer {
             adapter.setTasks(it!!)
         })
     }
@@ -36,8 +36,10 @@ class TaskListView : AppCompatActivity() {
 
     private fun setRecyclerView() {
          adapter = TaskListAdapter()
-        recyclerview.adapter = adapter
-        recyclerview.layoutManager = LinearLayoutManager(this)
+        recyclerview.apply {
+            adapter = this@TaskListView.adapter
+            layoutManager = LinearLayoutManager(this@TaskListView)
+        }
     }
 
     fun onButtonClicked(v: View) {
