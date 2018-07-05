@@ -5,6 +5,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * Database와 Query문으로 값을 가져오고 Rx를 이용하여 동기, 비동기를 나눔
+ */
 class TaskRepository private constructor(private val taskDao: TaskDao){
     fun getAll(onSuccess: (MutableList<Task>) -> Unit){
         getTasksOfRx({ taskDao.getAll() }, onSuccess)

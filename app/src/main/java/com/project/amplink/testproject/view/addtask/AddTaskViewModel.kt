@@ -1,6 +1,5 @@
 package com.project.amplink.testproject.view.addtask
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.project.amplink.testproject.domain.Task
