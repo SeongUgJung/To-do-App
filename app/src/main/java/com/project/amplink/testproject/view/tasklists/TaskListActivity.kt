@@ -18,12 +18,20 @@ class TaskListActivity : AppCompatActivity() {
     private lateinit var adapter: TaskListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView(this, R.layout.tasklistview) as TasklistviewBinding
+        setViewModel()
+        setDataBinding()
+        setRecyclerView()
+    }
+
+    private fun setViewModel() {
         val factory = InjecorUtil.provideTaskListViewModelFactory(this)
         viewModel = ViewModelProviders.of(this, factory).get(TaskListViewModel::class.java)
+    }
+
+    private fun setDataBinding() {
+        val binding = DataBindingUtil.setContentView(this, R.layout.tasklistview) as TasklistviewBinding
         binding.setLifecycleOwner(this)
         binding.viewModel = this.viewModel
-        setRecyclerView()
     }
 
     override fun onResume() {

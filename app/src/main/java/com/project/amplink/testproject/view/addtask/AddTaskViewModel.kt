@@ -12,6 +12,7 @@ class AddTaskViewModel(private val taskRepository: TaskRepository): ViewModel() 
     var isName: MutableLiveData<Boolean> = MutableLiveData()
     var isContent: MutableLiveData<Boolean> = MutableLiveData()
 
+    // 코틀린 문법으로 init은 생성자 코드가 실행되기 전 실행되는 코드
     init {
         task.postValue(Task(0, "", "", ""))
 
@@ -20,10 +21,12 @@ class AddTaskViewModel(private val taskRepository: TaskRepository): ViewModel() 
         isContent.postValue(false)
     }
 
+    // Android 데이터베이스에 값을 넣는다.
     fun insertData(onSuccess: () -> Unit) {
         taskRepository.insertTask(task.value!!, onSuccess)
     }
 
+    // 아래 코드들은 Setter역할
     fun setIsTitle() {
         isTitle.postValue(task.value!!.title.isNotEmpty())
     }
