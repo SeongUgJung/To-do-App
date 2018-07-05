@@ -15,14 +15,24 @@ class DetailTaskActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView(this, R.layout.detailtaskview) as DetailtaskviewBinding
+        setViewModel()
+        setDataBinding()
+    }
+
+    // ViewModel Setting
+    private fun setViewModel() {
         val factory = InjecorUtil.provideDetailTaskViewModelFactory(this, intent.getIntExtra("index", 0))
         viewModel = ViewModelProviders.of(this, factory).get(DetailTaskViewModel::class.java)
-        viewModel.setTask(intent.getIntExtra("index", 0))
+    }
+
+    // DataBinding Setting
+    private fun setDataBinding() {
+        val binding = DataBindingUtil.setContentView(this, R.layout.detailtaskview) as DetailtaskviewBinding
         binding.setLifecycleOwner(this)
         binding.viewModel = this.viewModel
     }
 
+    // 업데이트 버튼 클릭 시 실행
     fun onUpdateClicked(v: View) {
         viewModel.updateTask {
             Toast.makeText(this, "업데이트 완료 했습니다.", Toast.LENGTH_LONG).show()
@@ -30,6 +40,7 @@ class DetailTaskActivity : AppCompatActivity() {
         }
     }
 
+    // 삭제 버튼 클릭 시 실행
     fun onDeleteClicked(v: View) {
         viewModel.deleteTask {
             Toast.makeText(this, "삭제 완료 했습니다.", Toast.LENGTH_LONG).show()

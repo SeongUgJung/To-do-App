@@ -10,6 +10,9 @@ import com.project.amplink.testproject.domain.Task
 import com.project.amplink.testproject.view.detailTask.DetailTaskActivity
 import kotlinx.android.synthetic.main.tasklistitem.view.*
 
+/**
+ * RecyclerView 안에 뷰들을 컨트롤 하는 class Adapter라고 한다
+ */
 class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
     private var tasks = listOf<Task>()
 

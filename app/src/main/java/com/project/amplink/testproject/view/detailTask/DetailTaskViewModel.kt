@@ -11,13 +11,15 @@ class DetailTaskViewModel(private val taskRepository: TaskRepository, taskNo: In
     var isTitle = MutableLiveData<Boolean>()
     var isContent = MutableLiveData<Boolean>()
 
+    // 코틀린 문법으로 init은 생성자 코드가 실행되기 전 실행되는 코드
+    // Detail한 Task의 정보를 가져와 task에 저장
     init {
         setTask(taskNo)
         isTitle.postValue(false)
         isContent.postValue(false)
     }
 
-    fun setTask(taskNo: Int) {
+    private fun setTask(taskNo: Int) {
         taskRepository.getTask(taskNo) {
             task.postValue(it)
         }

@@ -3,6 +3,9 @@ package com.project.amplink.testproject.domain.local
 import android.arch.persistence.room.*
 import com.project.amplink.testproject.domain.Task
 
+/**
+ *  데이터베이스에 접근하기 위한 Query문
+ */
 @Dao
 interface TaskDao {
     @Query("select * from tasks")

@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView
 import com.project.amplink.testproject.domain.Task
 import com.project.amplink.testproject.view.tasklists.TaskListAdapter
 
-
+/**
+ * xml 파일에 속성값 정의
+ */
 @BindingAdapter("tools:bind")
 fun bindItem(recyclerView: RecyclerView, tasks: MutableLiveData<MutableList<Task>>?) {
     if(tasks!!.value == null) {

@@ -7,6 +7,9 @@ import com.project.amplink.testproject.view.addtask.AddTaskViewModelFactory
 import com.project.amplink.testproject.view.detailTask.DetailTaskViewModelFactory
 import com.project.amplink.testproject.view.tasklists.TaskListViewModelFactory
 
+/**
+ * Repository와 viewmodelFactory 정의
+ */
 object InjecorUtil {
     private fun getTaskRepository(context: Context) : TaskRepository {
         return TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao())

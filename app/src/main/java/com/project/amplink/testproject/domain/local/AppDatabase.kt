@@ -6,7 +6,12 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.project.amplink.testproject.domain.Task
 
-
+/**
+ *  Android Database Of Room
+ *
+ *  안드로이드 데이터베이스에 접근하는 database instance를 singleton으로 생성
+ *
+ */
 @Database(entities = [(Task::class)], version = 1)
 abstract class AppDatabase: RoomDatabase() {
     companion object {
