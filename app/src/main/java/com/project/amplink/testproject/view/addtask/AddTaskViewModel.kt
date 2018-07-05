@@ -1,15 +1,12 @@
 package com.project.amplink.testproject.view.addtask
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import com.project.amplink.testproject.domain.Task
-import com.project.amplink.testproject.util.AppDatabase
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.project.amplink.testproject.domain.local.TaskRepository
 
-class AddTaskViewModel(private val context:Application): AndroidViewModel(context) {
+class AddTaskViewModel(private val taskRepository: TaskRepository): ViewModel() {
     var task: MutableLiveData<Task> = MutableLiveData()
 
     var isTitle: MutableLiveData<Boolean> = MutableLiveData()
@@ -25,10 +22,7 @@ class AddTaskViewModel(private val context:Application): AndroidViewModel(contex
     }
 
     fun insertData(onSuccess: () -> Unit) {
-        val dao = AppDatabase.getInstance(context).taskDao()
-        Observable.fromCallable {
-            dao.insertTask(task.value!!)
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({},{}, {onSuccess()})
+        taskRepository.insertTask(task.value!!, onSuccess)
     }
 
     fun setIsTitle() {

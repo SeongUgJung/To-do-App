@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.detailTask.DetailTaskView">
+    tools:context=".view.detailTask.DetailTaskActivity">
 
     <data>
         <variable name="viewModel" type="com.project.amplink.testproject.view.detailTask.DetailTaskViewModel" />

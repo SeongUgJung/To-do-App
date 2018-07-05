@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.project.amplink.testproject.view.tasklists.TaskListView">
+        <activity android:name="com.project.amplink.testproject.view.tasklists.TaskListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.project.amplink.testproject.view.addtask.AddTaskView" />
-        <activity android:name="com.project.amplink.testproject.view.detailTask.DetailTaskView"></activity>
+        <activity android:name="com.project.amplink.testproject.view.addtask.AddTaskActivity" />
+        <activity android:name="com.project.amplink.testproject.view.detailTask.DetailTaskActivity"></activity>
     </application>
 
 </manifest>

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import com.project.amplink.testproject.BR
 import com.project.amplink.testproject.databinding.TasklistitemBinding
 import com.project.amplink.testproject.domain.Task
-import com.project.amplink.testproject.view.detailTask.DetailTaskView
+import com.project.amplink.testproject.view.detailTask.DetailTaskActivity
 import kotlinx.android.synthetic.main.tasklistitem.view.*
 
 class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
-    private var tasks = mutableListOf<Task>()
+    private var tasks = listOf<Task>()
 
-    fun setTasks(tasks: MutableList<Task>) {
+    fun setTasks(tasks: List<Task>) {
         this.tasks = tasks
         notifyDataSetChanged()
     }
@@ -30,17 +30,23 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
         holder.bind(task)
-        holder.itemView.stage.setOnClickListener {
-            val intent = Intent(holder.itemView.context, DetailTaskView::class.java)
-            intent.putExtra("index", task.no)
-            holder.itemView.context.startActivity(intent)
-        }
     }
 
 
 
     class ViewHolder(private val binding: TasklistitemBinding):RecyclerView.ViewHolder(binding.root) {
+        var task: Task? = null
+
+        init {
+            itemView.stage.setOnClickListener {
+                val intent = Intent(itemView.context, DetailTaskActivity::class.java)
+                intent.putExtra("index", task!!.no)
+                itemView.context.startActivity(intent)
+            }
+        }
+
         fun bind(task: Task) {
+            this.task = task
             binding.setVariable(BR.task, task)
         }
     }

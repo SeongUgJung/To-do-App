@@ -1,22 +1,16 @@
 package com.project.amplink.testproject.view.tasklists
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import com.project.amplink.testproject.domain.Task
-import com.project.amplink.testproject.util.AppDatabase
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.project.amplink.testproject.domain.local.TaskRepository
 
-class TaskListViewModel(private val context: Application): AndroidViewModel(context) {
+class TaskListViewModel(private val taskRepository: TaskRepository): ViewModel() {
     var tasks: MutableLiveData<MutableList<Task>> = MutableLiveData()
 
     fun setTasks() {
-        val dao = AppDatabase.getInstance(context).taskDao()
-        Observable.fromCallable { dao.getAll() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    tasks.postValue(it)
-                }
+        taskRepository.getAll {
+            tasks.postValue(it)
+        }
     }
 }

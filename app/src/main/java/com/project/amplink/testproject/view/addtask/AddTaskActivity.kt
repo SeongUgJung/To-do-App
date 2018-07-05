@@ -8,14 +8,16 @@ import android.view.View
 import android.widget.Toast
 import com.project.amplink.testproject.R
 import com.project.amplink.testproject.databinding.AddtaskviewBinding
+import com.project.amplink.testproject.util.InjecorUtil
 
-class AddTaskView : AppCompatActivity(){
+class AddTaskActivity : AppCompatActivity(){
     private lateinit var viewModel: AddTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView(this, R.layout.addtaskview) as AddtaskviewBinding
-        viewModel = ViewModelProviders.of(this).get(AddTaskViewModel::class.java)
+        val factory = InjecorUtil.provideAddTaskViewModelFactory(this)
+        viewModel = ViewModelProviders.of(this, factory).get(AddTaskViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.viewModel = this.viewModel
     }

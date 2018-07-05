@@ -8,14 +8,16 @@ import android.view.View
 import android.widget.Toast
 import com.project.amplink.testproject.R
 import com.project.amplink.testproject.databinding.DetailtaskviewBinding
+import com.project.amplink.testproject.util.InjecorUtil
 
-class DetailTaskView : AppCompatActivity() {
+class DetailTaskActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView(this, R.layout.detailtaskview) as DetailtaskviewBinding
-        viewModel = ViewModelProviders.of(this).get(DetailTaskViewModel::class.java)
+        val factory = InjecorUtil.provideDetailTaskViewModelFactory(this, intent.getIntExtra("index", 0))
+        viewModel = ViewModelProviders.of(this, factory).get(DetailTaskViewModel::class.java)
         viewModel.setTask(intent.getIntExtra("index", 0))
         binding.setLifecycleOwner(this)
         binding.viewModel = this.viewModel

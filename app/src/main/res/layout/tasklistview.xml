@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.tasklists.TaskListView">
+    tools:context=".view.tasklists.TaskListActivity">
     <data>
         <variable name="viewModel" type="com.project.amplink.testproject.view.tasklists.TaskListViewModel" />
         <variable name="view" type="android.view.View" />
@@ -20,7 +20,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:bind="@{viewModel.tasks}">
 
     </android.support.v7.widget.RecyclerView>
 
