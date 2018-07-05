@@ -7,24 +7,29 @@ import io.reactivex.schedulers.Schedulers
 
 class TaskRepository private constructor(private val taskDao: TaskDao){
     fun getAll(onSuccess: (MutableList<Task>) -> Unit){
-        Observable.fromCallable { taskDao.getAll() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { onSuccess(it) }
+        getTasksOfRx({ taskDao.getAll() }, onSuccess)
     }
     fun getTask(taskNo: Int, onSuccess: (Task) -> Unit){
-        Observable.fromCallable { taskDao.getTask(taskNo) }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { onSuccess(it) }
+        getTasksOfRx({ taskDao.getTask(taskNo) }, onSuccess)
     }
     fun insertTask(task: Task, onSuccess: () -> Unit) {
-        Observable.fromCallable { taskDao.insertTask(task) }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, {}, {onSuccess()})
+        controllTaskOfRx({ taskDao.insertTask(task) }, onSuccess)
     }
     fun updateTask(task: Task, onSuccess: () -> Unit) {
-        Observable.fromCallable { taskDao.updateTask(task) }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, {}, {onSuccess()})
+        controllTaskOfRx({ taskDao.updateTask(task) }, onSuccess)
     }
     fun deleteTask(task: Task, onSuccess: () -> Unit) {
-        Observable.fromCallable { taskDao.deleteTask(task) }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        controllTaskOfRx({ taskDao.deleteTask(task) }, onSuccess)
+    }
+
+    private fun controllTaskOfRx(onTask: () -> Unit, onSuccess: () -> Unit) {
+        Observable.fromCallable { onTask() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, {}, {onSuccess()})
+    }
+
+    private fun <T: Any> getTasksOfRx(onTask: () -> T, onSuccess: (T ) -> Unit) {
+        Observable.fromCallable { onTask() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe({onSuccess(it)}, {}, {})
     }
 
     companion object {
