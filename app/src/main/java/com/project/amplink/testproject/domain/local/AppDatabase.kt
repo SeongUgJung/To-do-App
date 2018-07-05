@@ -12,14 +12,9 @@ abstract class AppDatabase: RoomDatabase() {
     companion object {
         private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase {
-            if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        AppDatabase::class.java, "Tasks.db")
-                        .build()
-            }
-            return INSTANCE!!
-        }
+        fun getInstance(context: Context) =
+                INSTANCE?:Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "Tasks.db").build()
+                        .also { INSTANCE = it }
     }
 
     abstract fun taskDao(): TaskDao
