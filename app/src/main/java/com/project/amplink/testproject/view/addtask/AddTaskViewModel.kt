@@ -1,32 +1,47 @@
 package com.project.amplink.testproject.view.addtask
 
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
+import com.project.amplink.testproject.R
+import com.project.amplink.testproject.base.BaseViewModel
 import com.project.amplink.testproject.domain.Task
 import com.project.amplink.testproject.domain.local.TaskRepository
+import com.project.amplink.testproject.view.addtask.usecase.ShowToastForAddUsecase
+import com.project.amplink.testproject.view.detailTask.usecase.BackToHomeUsecase
 
-class AddTaskViewModel(private val taskRepository: TaskRepository): ViewModel() {
+class AddTaskViewModel(private val taskRepository: TaskRepository,
+                       private val backToHomeUsecase: BackToHomeUsecase,
+                       private val showToastForAddUsecase: ShowToastForAddUsecase): BaseViewModel() {
+
     var task = MutableLiveData<Task>().apply { value = Task() }
+    var isTitle = ObservableBoolean(false)
 
-    var isTitle = MutableLiveData<Boolean>().apply{ value = false }
-    var isName = MutableLiveData<Boolean>().apply { value = false }
-    var isContent = MutableLiveData<Boolean>().apply { value = false }
+    var isName = ObservableBoolean(false)
+    var isContent = ObservableBoolean(false)
+    override val layoutId: Int = R.layout.addtaskview
 
-    // Android 데이터베이스에 값을 넣는다.
-    fun insertData() {
+    // 취소 버튼 눌렀을때 실행
+    fun onCancelClicked() {
+        backToHomeUsecase.home()
+    }
+
+    // 추가 버튼 눌렀을때 실행
+    fun onAddClicked() {
         taskRepository.insertTask(task.value!!)
+        showToastForAddUsecase.uploaded()
+        backToHomeUsecase.home()
     }
 
     // 아래 코드들은 Setter역할
     fun setIsTitle() {
-        isTitle.postValue(task.value!!.title.isNotEmpty())
+        isTitle.set(task.value!!.title.isNotEmpty())
     }
 
     fun setIsName() {
-        isName.postValue(task.value!!.name.isNotEmpty())
+        isName.set(task.value!!.name.isNotEmpty())
     }
 
     fun setIsContent() {
-        isContent.postValue(task.value!!.content.isNotEmpty())
+        isContent.set(task.value!!.content.isNotEmpty())
     }
 }

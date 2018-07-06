@@ -79,7 +79,7 @@
         android:layout_marginStart="16dp"
         android:text="확인"
         android:enabled="@{viewModel.isTitle&amp;&amp;viewModel.isContent&amp;&amp;viewModel.isName ? true : false}"
-        android:onClick="onAddClicked"
+        android:onClick="@{viewModel.onAddClicked()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/space"
         app:layout_constraintStart_toStartOf="parent" />
@@ -94,7 +94,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
         android:text="취소"
-        android:onClick="onCancelClicked"
+        android:onClick="@{viewModel.onCancelClicked()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/space" />

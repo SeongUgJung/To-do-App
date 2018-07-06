@@ -5,10 +5,10 @@ import android.content.Context
 import com.project.amplink.testproject.base.viewModelFactory
 import com.project.amplink.testproject.domain.local.AppDatabase
 import com.project.amplink.testproject.domain.local.TaskRepository
-import com.project.amplink.testproject.view.addtask.AddTaskViewModelFactory
+import com.project.amplink.testproject.view.addtask.AddTaskViewModel
 import com.project.amplink.testproject.view.detailTask.DetailTaskViewModel
 import com.project.amplink.testproject.view.detailTask.usecase.BackToHomeUsecaseImpl
-import com.project.amplink.testproject.view.detailTask.usecase.ShowToastUsecaseImpl
+import com.project.amplink.testproject.view.detailTask.usecase.ShowToastForDetailUsecaseImpl
 import com.project.amplink.testproject.view.tasklists.TaskListViewModel
 import com.project.amplink.testproject.view.tasklists.usecase.CallAddTaskUsecaseImpl
 
@@ -20,16 +20,20 @@ object InjecorUtil {
         return TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao())
     }
 
-    fun provideAddTaskViewModelFactory(context: Context): AddTaskViewModelFactory {
+    fun provideAddTaskViewModelFactory(context: Context): ViewModelProvider.NewInstanceFactory {
         val repository = getTaskRepository(context)
-        return AddTaskViewModelFactory(repository)
+        return viewModelFactory {
+            AddTaskViewModel(repository,
+                BackToHomeUsecaseImpl(context),
+                com.project.amplink.testproject.view.addtask.usecase.ShowToastForAddUsecaseImpl(context, ResourcesProviderImpl(context)))
+        }
     }
 
     fun provideDetailTaskViewModelFactory(context: Context, taskNo: Int): ViewModelProvider.NewInstanceFactory {
         val repository = getTaskRepository(context)
         return viewModelFactory {
             DetailTaskViewModel(repository,
-                ShowToastUsecaseImpl(context, ResourcesProviderImpl(context)),
+                ShowToastForDetailUsecaseImpl(context, ResourcesProviderImpl(context)),
                 BackToHomeUsecaseImpl(context),
                 taskNo)
         }

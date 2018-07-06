@@ -7,10 +7,10 @@ import com.project.amplink.testproject.base.BaseViewModel
 import com.project.amplink.testproject.domain.Task
 import com.project.amplink.testproject.domain.local.TaskRepository
 import com.project.amplink.testproject.view.detailTask.usecase.BackToHomeUsecase
-import com.project.amplink.testproject.view.detailTask.usecase.ShowToastUsecase
+import com.project.amplink.testproject.view.detailTask.usecase.ShowToastForDetailUsecase
 
 class DetailTaskViewModel(private val taskRepository: TaskRepository,
-                          private val showToastUsecase: ShowToastUsecase,
+                          private val showToastForDetailUsecase: ShowToastForDetailUsecase,
                           private val backToHomeUsecase: BackToHomeUsecase,
                           taskNo: Int) : BaseViewModel() {
     var task = MutableLiveData<Task>().apply { value = taskRepository.getTask(taskNo) }
@@ -21,13 +21,13 @@ class DetailTaskViewModel(private val taskRepository: TaskRepository,
     var isContent = ObservableBoolean(true)
 
     fun updateTask() {
-        showToastUsecase.update()
+        showToastForDetailUsecase.update()
         taskRepository.updateTask(task.value!!)
         backToHomeUsecase.home()
     }
 
     fun deleteTask() {
-        showToastUsecase.delete()
+        showToastForDetailUsecase.delete()
         taskRepository.deleteTask(task.value!!)
         backToHomeUsecase.home()
     }

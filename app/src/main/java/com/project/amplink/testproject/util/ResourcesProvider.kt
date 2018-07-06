@@ -6,8 +6,8 @@ import android.support.annotation.StringRes
 
 
 interface ResourcesProvider {
-    fun string(@StringRes id: Int): String?
-    fun string(@StringRes id: Int, vararg args: String): String?
+    fun string(@StringRes id: Int): String
+    fun string(@StringRes id: Int, vararg args: String): String
     fun dimen(@DimenRes id: Int): Float
 }
 

@@ -6,13 +6,13 @@ import com.project.amplink.testproject.util.ResourcesProviderImpl
 import com.project.amplink.testproject.util.toast
 
 
-interface ShowToastUsecase {
+interface ShowToastForDetailUsecase {
     fun update()
     fun delete()
 }
 
-class ShowToastUsecaseImpl(private val context: Context,
-                           private val resourcesProviderImpl: ResourcesProviderImpl) : ShowToastUsecase {
+class ShowToastForDetailUsecaseImpl(private val context: Context,
+                                    private val resourcesProviderImpl: ResourcesProviderImpl) : ShowToastForDetailUsecase {
     override fun update() {
         context.toast(resourcesProviderImpl.string(R.string.updated_completely))
     }
