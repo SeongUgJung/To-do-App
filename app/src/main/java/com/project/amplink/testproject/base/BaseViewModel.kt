@@ -11,10 +11,16 @@ abstract class BaseViewModel : ViewModel() {
 
 abstract class RxViewModel : BaseViewModel() {
 
-    val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
     fun Disposable.bindUtilDestroy() {
-        disposables.add(this)
+        if (!disposables.isDisposed) {
+            disposables.add(this)
+        } else {
+            if (!isDisposed) {
+                dispose()
+            }
+        }
     }
 
     override fun onCleared() {
