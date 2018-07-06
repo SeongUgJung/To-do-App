@@ -1,17 +1,20 @@
 package com.project.amplink.testproject.util
 
+import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
+import com.project.amplink.testproject.base.viewModelFactory
 import com.project.amplink.testproject.domain.local.AppDatabase
 import com.project.amplink.testproject.domain.local.TaskRepository
 import com.project.amplink.testproject.view.addtask.AddTaskViewModelFactory
 import com.project.amplink.testproject.view.detailTask.DetailTaskViewModelFactory
-import com.project.amplink.testproject.view.tasklists.TaskListViewModelFactory
+import com.project.amplink.testproject.view.tasklists.TaskListViewModel
+import com.project.amplink.testproject.view.tasklists.usecase.CallAddTaskUsecaseImpl
 
 /**
  * Repository와 viewmodelFactory 정의
  */
 object InjecorUtil {
-    private fun getTaskRepository(context: Context) : TaskRepository {
+    private fun getTaskRepository(context: Context): TaskRepository {
         return TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao())
     }
 
@@ -25,8 +28,11 @@ object InjecorUtil {
         return DetailTaskViewModelFactory(repository, taskNo)
     }
 
-    fun provideTaskListViewModelFactory(context: Context): TaskListViewModelFactory {
+    fun provideTaskListViewModelFactory(context: Context): ViewModelProvider.NewInstanceFactory {
         val repository = getTaskRepository(context)
-        return TaskListViewModelFactory(repository)
+        val callAddTaskUsecase = CallAddTaskUsecaseImpl(context)
+        return viewModelFactory {
+            TaskListViewModel(callAddTaskUsecase, repository)
+        }
     }
 }

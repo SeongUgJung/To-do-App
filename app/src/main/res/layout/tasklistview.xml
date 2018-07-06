@@ -16,7 +16,8 @@
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="@{viewModel.tasks[0] == null ? view.GONE: view.VISIBLE}"
+        android:visibility="@{viewModel.recyclerVisible}"
+        app:taskListAdapter="@{viewModel.tasks}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,7 @@
         android:layout_marginRight="24dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="onButtonClicked"
+        android:onClick="@{vm.onButtonClicked()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
