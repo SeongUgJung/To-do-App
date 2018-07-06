@@ -1,6 +1,7 @@
 package com.project.amplink.testproject.domain.local
 
 import com.project.amplink.testproject.domain.Task
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
@@ -14,15 +15,21 @@ class TaskRepository private constructor(private val taskDao: TaskDao) {
     fun getTask(taskNo: Int) = Observable.fromCallable { taskDao.getTask(taskNo) }.subscribeOn(Schedulers.io()).blockingFirst()!!
 
     fun insertTask(task: Task) {
-        Observable.fromCallable { taskDao.insertTask(task) }.subscribeOn(Schedulers.io())
+        Completable.fromCallable { taskDao.insertTask(task) }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
     }
 
     fun updateTask(task: Task) {
-        Observable.fromCallable { taskDao.updateTask(task) }.subscribeOn(Schedulers.io())
+        Completable.fromCallable { taskDao.updateTask(task) }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
     }
 
     fun deleteTask(task: Task) {
-        Observable.fromCallable { taskDao.deleteTask(task) }.subscribeOn(Schedulers.io())
+        Completable.fromCallable { taskDao.deleteTask(task) }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
     }
 
     companion object {

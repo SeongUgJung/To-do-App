@@ -34,7 +34,7 @@
         android:layout_marginRight="24dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{vm.onButtonClicked()}"
+        android:onClick="@{() -> viewModel.onButtonClicked()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />

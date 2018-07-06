@@ -35,7 +35,8 @@ dependencies {
 
     // To use Room
     implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.room_version"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.room_version"
+    kapt "android.arch.persistence.room:compiler:$rootProject.room_version"
 
     def lifecycle_version = "1.1.1"
 
