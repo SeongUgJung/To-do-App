@@ -1,5 +1,6 @@
 package com.project.amplink.testproject.view.tasklists
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -34,17 +35,15 @@ class TaskListActivity : AppCompatActivity() {
         binding.viewModel = this.viewModel
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.setTasks()
-    }
-
     private fun setRecyclerView() {
          adapter = TaskListAdapter()
         recyclerview.apply {
             adapter = this@TaskListActivity.adapter
             layoutManager = LinearLayoutManager(this@TaskListActivity)
         }
+        viewModel.tasks!!.observe(this, Observer {
+            adapter.setTasks(it!!)
+        })
     }
 
     fun onButtonClicked(v: View) {

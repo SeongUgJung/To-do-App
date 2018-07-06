@@ -1,5 +1,6 @@
 package com.project.amplink.testproject.domain.local
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import com.project.amplink.testproject.domain.Task
 
@@ -9,7 +10,7 @@ import com.project.amplink.testproject.domain.Task
 @Dao
 interface TaskDao {
     @Query("select * from tasks")
-    fun getAll(): MutableList<Task>
+    fun getAll(): LiveData<MutableList<Task>>
 
     @Query("select * from tasks where `no` = :taskNo")
     fun getTask(taskNo: Int): Task
