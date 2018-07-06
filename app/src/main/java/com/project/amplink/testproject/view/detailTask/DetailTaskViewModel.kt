@@ -8,8 +8,8 @@ import com.project.amplink.testproject.domain.local.TaskRepository
 class DetailTaskViewModel(private val taskRepository: TaskRepository, taskNo: Int): ViewModel() {
     var task = MutableLiveData<Task>().apply { value = taskRepository.getTask(taskNo) }
 
-    var isTitle = MutableLiveData<Boolean>().apply { value = false }
-    var isContent = MutableLiveData<Boolean>().apply { value = false }
+    var isTitle = MutableLiveData<Boolean>().apply { value = true }
+    var isContent = MutableLiveData<Boolean>().apply { value = true }
 
     fun updateTask() {
         taskRepository.updateTask(task.value!!)
