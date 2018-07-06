@@ -6,7 +6,9 @@ import com.project.amplink.testproject.base.viewModelFactory
 import com.project.amplink.testproject.domain.local.AppDatabase
 import com.project.amplink.testproject.domain.local.TaskRepository
 import com.project.amplink.testproject.view.addtask.AddTaskViewModelFactory
-import com.project.amplink.testproject.view.detailTask.DetailTaskViewModelFactory
+import com.project.amplink.testproject.view.detailTask.DetailTaskViewModel
+import com.project.amplink.testproject.view.detailTask.usecase.BackToHomeUsecaseImpl
+import com.project.amplink.testproject.view.detailTask.usecase.ShowToastUsecaseImpl
 import com.project.amplink.testproject.view.tasklists.TaskListViewModel
 import com.project.amplink.testproject.view.tasklists.usecase.CallAddTaskUsecaseImpl
 
@@ -23,9 +25,14 @@ object InjecorUtil {
         return AddTaskViewModelFactory(repository)
     }
 
-    fun provideDetailTaskViewModelFactory(context: Context, taskNo: Int): DetailTaskViewModelFactory {
+    fun provideDetailTaskViewModelFactory(context: Context, taskNo: Int): ViewModelProvider.NewInstanceFactory {
         val repository = getTaskRepository(context)
-        return DetailTaskViewModelFactory(repository, taskNo)
+        return viewModelFactory {
+            DetailTaskViewModel(repository,
+                ShowToastUsecaseImpl(context, ResourcesProviderImpl(context)),
+                BackToHomeUsecaseImpl(context),
+                taskNo)
+        }
     }
 
     fun provideTaskListViewModelFactory(context: Context): ViewModelProvider.NewInstanceFactory {
