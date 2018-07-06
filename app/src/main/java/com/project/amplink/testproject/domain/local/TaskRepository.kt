@@ -10,31 +10,15 @@ import io.reactivex.schedulers.Schedulers
  * Database와 Query문으로 값을 가져오고 Rx를 이용하여 동기, 비동기를 나눔
  */
 class TaskRepository private constructor(private val taskDao: TaskDao){
-    fun getAll(): LiveData<MutableList<Task>>{
-        return taskDao.getAll()
-    }
-    fun getTask(taskNo: Int, onSuccess: (Task) -> Unit){
-        getTasksOfRx({ taskDao.getTask(taskNo) }, onSuccess)
-    }
-    fun insertTask(task: Task, onSuccess: () -> Unit) {
-        controllTaskOfRx({ taskDao.insertTask(task) }, onSuccess)
-    }
-    fun updateTask(task: Task, onSuccess: () -> Unit) {
-        controllTaskOfRx({ taskDao.updateTask(task) }, onSuccess)
-    }
-    fun deleteTask(task: Task, onSuccess: () -> Unit) {
-        controllTaskOfRx({ taskDao.deleteTask(task) }, onSuccess)
-    }
+    fun getAll(): LiveData<MutableList<Task>> = taskDao.getAll()
 
-    private fun controllTaskOfRx(onTask: () -> Unit, onSuccess: () -> Unit) {
-        Observable.fromCallable { onTask() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, {}, {onSuccess()})
-    }
+    fun getTask(taskNo: Int) = Observable.fromCallable { taskDao.getTask(taskNo) }.subscribeOn(Schedulers.io()).blockingFirst()!!
 
-    private fun <T: Any> getTasksOfRx(onTask: () -> T, onSuccess: (T ) -> Unit) {
-        Observable.fromCallable { onTask() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ onSuccess(it)}, {}, {})
-    }
+    fun insertTask(task: Task) { Observable.fromCallable { taskDao.insertTask(task) }.subscribeOn(Schedulers.io()) }
+
+    fun updateTask(task: Task) { Observable.fromCallable { taskDao.updateTask(task) }.subscribeOn(Schedulers.io()) }
+
+    fun deleteTask(task: Task) { Observable.fromCallable { taskDao.deleteTask(task) }.subscribeOn(Schedulers.io()) }
 
     companion object {
         private var instance: TaskRepository? = null

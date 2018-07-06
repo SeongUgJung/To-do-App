@@ -39,9 +39,8 @@ class AddTaskActivity : AppCompatActivity(){
 
     // 추가 버튼 눌렀을때 실행
     fun onAddClicked(v:View) {
-        viewModel.insertData{
-            Toast.makeText(this, "올렸습니다.", Toast.LENGTH_LONG).show()
-            finish()
-        }
+        viewModel.insertData()
+        Toast.makeText(this, "올렸습니다.", Toast.LENGTH_LONG).show()
+        finish()
     }
 }

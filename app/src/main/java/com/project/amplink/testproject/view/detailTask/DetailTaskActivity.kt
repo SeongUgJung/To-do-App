@@ -34,17 +34,15 @@ class DetailTaskActivity : AppCompatActivity() {
 
     // 업데이트 버튼 클릭 시 실행
     fun onUpdateClicked(v: View) {
-        viewModel.updateTask {
-            Toast.makeText(this, "업데이트 완료 했습니다.", Toast.LENGTH_LONG).show()
-            finish()
-        }
+        viewModel.updateTask()
+        Toast.makeText(this, "업데이트 완료 했습니다.", Toast.LENGTH_LONG).show()
+        finish()
     }
 
     // 삭제 버튼 클릭 시 실행
     fun onDeleteClicked(v: View) {
-        viewModel.deleteTask {
-            Toast.makeText(this, "삭제 완료 했습니다.", Toast.LENGTH_LONG).show()
-            finish()
-        }
+        viewModel.deleteTask()
+        Toast.makeText(this, "삭제 완료 했습니다.", Toast.LENGTH_LONG).show()
+        finish()
     }
 }

@@ -6,24 +6,15 @@ import com.project.amplink.testproject.domain.Task
 import com.project.amplink.testproject.domain.local.TaskRepository
 
 class AddTaskViewModel(private val taskRepository: TaskRepository): ViewModel() {
-    var task: MutableLiveData<Task> = MutableLiveData()
+    var task = MutableLiveData<Task>().apply { value = Task() }
 
-    var isTitle: MutableLiveData<Boolean> = MutableLiveData()
-    var isName: MutableLiveData<Boolean> = MutableLiveData()
-    var isContent: MutableLiveData<Boolean> = MutableLiveData()
-
-    // 코틀린 문법으로 init은 생성자 코드가 실행되기 전 실행되는 코드
-    init {
-        task.postValue(Task(0, "", "", ""))
-
-        isTitle.postValue(false)
-        isName.postValue(false)
-        isContent.postValue(false)
-    }
+    var isTitle = MutableLiveData<Boolean>().apply{ value = false }
+    var isName = MutableLiveData<Boolean>().apply { value = false }
+    var isContent = MutableLiveData<Boolean>().apply { value = false }
 
     // Android 데이터베이스에 값을 넣는다.
-    fun insertData(onSuccess: () -> Unit) {
-        taskRepository.insertTask(task.value!!, onSuccess)
+    fun insertData() {
+        taskRepository.insertTask(task.value!!)
     }
 
     // 아래 코드들은 Setter역할

@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey
  */
 @Entity(tableName = "tasks")
 data class Task @JvmOverloads constructor(
-        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "no") var no: Int,
-        @ColumnInfo(name = "title") var title: String,
-        @ColumnInfo(name = "content") var content: String,
-        @ColumnInfo(name = "name") var name: String)
+        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "no") var no: Int = 0,
+        @ColumnInfo(name = "title") var title: String = "",
+        @ColumnInfo(name = "content") var content: String = "",
+        @ColumnInfo(name = "name") var name: String = "")
