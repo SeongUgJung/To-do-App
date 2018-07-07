@@ -12,15 +12,16 @@ import com.project.amplink.testproject.view.tasklists.TaskListAdapter
 fun taskListAdapter(recyclerview: RecyclerView, list: List<Task>) {
 
     val adapter: TaskListAdapter = recyclerview.adapter as? TaskListAdapter
-        ?: TaskListAdapter().apply { recyclerview.adapter = this }
-    recyclerview.apply {
-        layoutManager = LinearLayoutManager(recyclerview.context)
-    }
+        ?: TaskListAdapter().apply {
+            recyclerview.adapter = this
+            recyclerview.layoutManager = LinearLayoutManager(recyclerview.context)
+        }
+
 
     adapter.setTasks(list)
 }
 
 @BindingAdapter("android:visibility")
-fun visibility(view : View, visible : Boolean) {
+fun visibility(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }

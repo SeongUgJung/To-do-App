@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Database와 Query문으로 값을 가져오고 Rx를 이용하여 동기, 비동기를 나눔
  */
-class TaskRepository private constructor(private val taskDao: TaskDao) {
+class TaskRepository constructor(private val taskDao: TaskDao) {
     fun getAll() = taskDao.getAll()
     fun getAllRx() = taskDao.getAllRx()
 

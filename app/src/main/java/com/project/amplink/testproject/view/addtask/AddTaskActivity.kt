@@ -1,26 +1,37 @@
 package com.project.amplink.testproject.view.addtask
 
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.project.amplink.testproject.databinding.AddtaskviewBinding
-import com.project.amplink.testproject.util.InjecorUtil
+import com.project.amplink.testproject.BR
+import com.project.amplink.testproject.appDependencies
+import com.project.amplink.testproject.view.addtask.dagger.DaggerAddTaskComponent
+import javax.inject.Inject
 
-class AddTaskActivity : AppCompatActivity(){
+class AddTaskActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModel: AddTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        DaggerAddTaskComponent.builder()
+            .activity(this)
+            .appDepedencies(applicationContext.appDependencies())
+            .build()
+            .inject(this)
+
+
         setViewModel()
     }
 
     // ViewModel Setting
     private fun setViewModel() {
-        val factory = InjecorUtil.provideAddTaskViewModelFactory(this)
-        val viewModel = ViewModelProviders.of(this, factory).get(AddTaskViewModel::class.java)
-        val binding = DataBindingUtil.setContentView(this, viewModel.layoutId) as AddtaskviewBinding
+        val binding: ViewDataBinding = DataBindingUtil.setContentView(this, viewModel.layoutId)
         binding.setLifecycleOwner(this)
-        binding.viewModel = viewModel
+        binding.setVariable(BR.viewModel, viewModel)
     }
 
 }

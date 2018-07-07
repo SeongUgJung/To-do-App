@@ -1,7 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
-    room_version = '1.1.1'
+    versions = [:]
+    versions.dagger = "2.16"
+    versions.lifecycle = "1.1.1"
+    versions.room = '1.1.1'
 }
+
 buildscript {
     ext.kotlin_version = '1.2.51'
     repositories {
